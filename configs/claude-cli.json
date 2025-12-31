@@ -1,0 +1,42 @@
+{
+    "name": "System CLI bridge",
+    "tools": [
+        {
+            "name": "list_files",
+            "description": "List files in a directory",
+            "command": "dir /b {path}",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "path": {
+                        "type": "string",
+                        "description": "Directory path",
+                        "default": "."
+                    }
+                }
+            }
+        },
+        {
+            "name": "read_file_tail",
+            "description": "Read the last few lines of a file",
+            "command": "powershell -Command \"Get-Content {file} | Select-Object -Last {lines}\"",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "file": {
+                        "type": "string",
+                        "description": "File path"
+                    },
+                    "lines": {
+                        "type": "integer",
+                        "description": "Number of lines",
+                        "default": 10
+                    }
+                },
+                "required": [
+                    "file"
+                ]
+            }
+        }
+    ]
+}

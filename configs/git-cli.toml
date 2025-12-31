@@ -1,0 +1,31 @@
+name = "Git CLI Bridge"
+
+[[tools]]
+name = "git_status"
+description = "Show the working tree status"
+command = "git status -s"
+parameters = { type = "object", properties = {} }
+
+[[tools]]
+name = "git_log"
+description = "Show commit logs"
+command = "git log -n {n} --oneline --graph"
+
+[tools.parameters]
+type = "object"
+[tools.parameters.properties.n]
+type = "integer"
+description = "Number of commits"
+default = 10
+
+[[tools]]
+name = "git_diff"
+description = "Show changes between commits, commit and working tree, etc"
+command = "git diff {args}"
+
+[tools.parameters]
+type = "object"
+[tools.parameters.properties.args]
+type = "string"
+description = "Arguments for git diff (e.g. HEAD)"
+default = ""

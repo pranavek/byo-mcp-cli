@@ -1,0 +1,72 @@
+name = "GitHub CLI bridge"
+
+[[tools]]
+name = "gh_status"
+description = "Check GitHub CLI status and logged in user"
+command = "gh auth status"
+parameters = { type = "object", properties = {} }
+
+[[tools]]
+name = "gh_repo_view"
+description = "View a GitHub repository"
+command = "gh repo view {repo}"
+
+[tools.parameters]
+type = "object"
+required = ["repo"]
+[tools.parameters.properties.repo]
+type = "string"
+description = "Repository name (owner/repo)"
+
+[[tools]]
+name = "gh_search_repos"
+description = "Search for GitHub repositories"
+command = """
+gh repo search {query} \
+  --limit {limit} \
+  --json fullName,description,stargazerCount \
+  --template '{{{{range .}}}}{{{{tablerow .fullName .description .stargazerCount}}}}{{{{end}}}}'
+"""
+
+[tools.parameters]
+type = "object"
+required = ["query"]
+
+[tools.parameters.properties.query]
+type = "string"
+description = "Search query"
+
+[tools.parameters.properties.limit]
+type = "integer"
+description = "Number of results"
+default = 5
+
+[[tools]]
+name = "git_status"
+description = "Show the working tree status"
+command = "git status -s"
+parameters = { type = "object", properties = {} }
+
+[[tools]]
+name = "git_log"
+description = "Show commit logs"
+command = "git log -n {n} --oneline --graph"
+
+[tools.parameters]
+type = "object"
+[tools.parameters.properties.n]
+type = "integer"
+description = "Number of commits"
+default = 10
+
+[[tools]]
+name = "git_diff"
+description = "Show changes between commits, commit and working tree, etc"
+command = "git diff {args}"
+
+[tools.parameters]
+type = "object"
+[tools.parameters.properties.args]
+type = "string"
+description = "Arguments for git diff (e.g. HEAD)"
+default = ""

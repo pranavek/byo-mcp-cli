@@ -1,0 +1,25 @@
+name = "AWS CLI Bridge"
+
+[[tools]]
+name = "aws_s3_ls"
+description = "List S3 buckets or objects in a bucket"
+command = "aws s3 ls {path}"
+
+[tools.parameters]
+type = "object"
+[tools.parameters.properties.path]
+type = "string"
+description = "S3 path (e.g. s3://my-bucket/)"
+default = ""
+
+[[tools]]
+name = "aws_ec2_describe_instances"
+description = "List EC2 instances with optional filters"
+command = "aws ec2 describe-instances --query 'Reservations[*].Instances[*].[InstanceId,State.Name,PublicIpAddress,Tags[?Key==`Name`].Value | [0]]' --output table"
+parameters = { type = "object", properties = {} }
+
+[[tools]]
+name = "aws_lambda_list_functions"
+description = "List all Lambda functions"
+command = "aws lambda list-functions --query 'Functions[*].[FunctionName,Runtime,LastModified]' --output table"
+parameters = { type = "object", properties = {} }

@@ -1,0 +1,53 @@
+{
+    "name": "GitHub CLI bridge",
+    "tools": [
+        {
+            "name": "gh_status",
+            "description": "Check GitHub CLI status and logged in user",
+            "command": "gh auth status",
+            "parameters": {
+                "type": "object",
+                "properties": {}
+            }
+        },
+        {
+            "name": "gh_repo_view",
+            "description": "View a GitHub repository",
+            "command": "gh repo view {repo}",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "repo": {
+                        "type": "string",
+                        "description": "Repository name (owner/repo)"
+                    }
+                },
+                "required": [
+                    "repo"
+                ]
+            }
+        },
+        {
+            "name": "gh_search_repos",
+            "description": "Search for GitHub repositories",
+            "command": "gh repo search {query} --limit {limit}",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "query": {
+                        "type": "string",
+                        "description": "Search query"
+                    },
+                    "limit": {
+                        "type": "integer",
+                        "description": "Number of results",
+                        "default": 5
+                    }
+                },
+                "required": [
+                    "query"
+                ]
+            }
+        }
+    ]
+}

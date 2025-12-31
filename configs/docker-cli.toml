@@ -1,0 +1,29 @@
+name = "Docker CLI Bridge"
+
+[[tools]]
+name = "docker_ps"
+description = "List running containers"
+command = "docker ps --format \"table {{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Names}}\""
+parameters = { type = "object", properties = {} }
+
+[[tools]]
+name = "docker_images"
+description = "List docker images"
+command = "docker images --format \"table {{.Repository}}\t{{.Tag}}\t{{.Size}}\""
+parameters = { type = "object", properties = {} }
+
+[[tools]]
+name = "docker_logs"
+description = "Get logs for a container"
+command = "docker logs --tail {tail} {container}"
+
+[tools.parameters]
+type = "object"
+required = ["container"]
+[tools.parameters.properties.container]
+type = "string"
+description = "Container name or ID"
+[tools.parameters.properties.tail]
+type = "integer"
+description = "Number of lines to show"
+default = 50

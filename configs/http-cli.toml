@@ -1,0 +1,32 @@
+name = "HTTP CLI Bridge (curl)"
+
+[[tools]]
+name = "http_get"
+description = "Make a GET request"
+command = "curl -i -L {url}"
+
+[tools.parameters]
+type = "object"
+required = ["url"]
+[tools.parameters.properties.url]
+type = "string"
+description = "URL to request"
+
+[[tools]]
+name = "http_post"
+description = "Make a POST request with JSON data"
+command = """
+curl -i -X POST {url} \
+  -H "Content-Type: application/json" \
+  -d '{data}'
+"""
+
+[tools.parameters]
+type = "object"
+required = ["url", "data"]
+[tools.parameters.properties.url]
+type = "string"
+description = "URL to request"
+[tools.parameters.properties.data]
+type = "string"
+description = "JSON data string"
