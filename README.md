@@ -21,9 +21,16 @@ Instead of building custom MCP servers for every tool, simply wrap your existing
    source venv/bin/activate 
    ```
 
-3. **Install the package in editable mode**:
+3. **Install the package**:
+
+   **Developer mode (Recommended)**: Any changes you make to the source code will take effect immediately.
    ```bash
    pip install -e .
+   ```
+
+   **Standard mode**: A clean install where code is copied to your environment.
+   ```bash
+   pip install .
    ```
 
    *Alternatively, if you use `uv`:*
