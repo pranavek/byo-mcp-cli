@@ -9,9 +9,27 @@ Instead of building custom MCP servers for every tool, simply wrap your existing
 
 ## Installation
 
-```bash
-pip install -e .
-```
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/your-username/byo-mcp-cli.git
+   cd byo-mcp-cli
+   ```
+
+2. **Set up a virtual environment (optional but recommended)**:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate 
+   ```
+
+3. **Install the package in editable mode**:
+   ```bash
+   pip install -e .
+   ```
+
+   *Alternatively, if you use `uv`:*
+   ```bash
+   uv pip install -e .
+   ```
 
 ## Usage
 
@@ -56,6 +74,31 @@ type = "integer"
 description = "Max issues to list"
 default = 10
 ```
+
+## How to use with Claude Desktop
+
+To use `byo-mcp-cli` with Claude Desktop, add it to your `claude_desktop_config.json`:
+
+**Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+**macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+
+```json
+{
+  "mcpServers": {
+    "my-cli-tools": {
+      "command": "python",
+      "args": [
+        "-m",
+        "byo_mcp.main",
+        "--config",
+        "C:/absolute/path/to/your/configs/gh-cli.toml"
+      ]
+    }
+  }
+}
+```
+
+*Note: Use absolute paths for both the python executable (if not in PATH) and the config file.*
 
 ## Benefits of TOML
 
