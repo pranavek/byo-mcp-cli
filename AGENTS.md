@@ -11,16 +11,16 @@
 
 ## Design Patterns
 - **Protocol-First**: Standard MCP `stdio` interface.
-- **Config-Driven**: Dynamic tool registration via JSON.
+- **Config-Driven**: Dynamic tool registration via JSON/TOML.
 - **Type-Safe**: Leveraging Pydantic for configuration validation.
 
 ## Workflow
 1. **Explore**: Understand the user's script or tool.
-2. **Configure**: Define the tool in a JSON configuration.
+2. **Configure**: Define the tool in a JSON/TOML configuration.
 3. **Wrap**: Provide a standardized MCP `stdio` interface.
 4. **Inspect**: Provide real-time visibility into tool execution via stderr logging.
 
 ## Standards
 - **Naming**: Functions should be verbs. Variables should be descriptive nouns.
 - **Testing**: Use `pytest` for logic coverage.
-- **Documentation**: README is the map, JSON is the blueprint.
+- **Documentation**: README is the map, JSON/TOML is the blueprint.
