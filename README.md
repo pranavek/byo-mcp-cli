@@ -107,8 +107,16 @@ To use `byo-mcp-cli` with Claude Desktop, add it to your `claude_desktop_config.
 
 *Note: Use absolute paths for both the python executable (if not in PATH) and the config file.*
 
-## Benefits of TOML
+## ⚠️ Security Considerations
 
-- **Multi-line strings**: Perfect for complex CLI commands.
-- **Comments**: Document your tools right in the config.
-- **Readability**: Much cleaner syntax than JSON for configuration.
+This tool is designed to provide maximum flexibility by wrapping existing CLI tools. However, this comes with important security implications:
+
+1. **Command Injection**: `byo-mcp-cli` uses `shell=True` to execute commands. Since arguments are provided by an LLM, there is a risk of command injection. For example, if a tool takes a filename as a parameter, an LLM could potentially pass `; rm -rf /` or similar malicious strings.
+2. **System Access**: The MCP server runs with the same permissions as the user who started it. Any CLI tool you expose will be accessible to the LLM with those permissions.
+3. **Local Trust**: This tool is intended for local use. Avoid exposing the MCP server over a public network.
+4. **Configuration Review**: Always review the `command` templates in your TOML/JSON files. Ensure you are not exposing dangerous commands or tools that could be abused to gain unauthorized access to your system.
+
+**Best Practices:**
+- Only expose the minimum set of tools required.
+- Use tools that have built-in safety checks where possible.
+- Be cautious when using this with highly autonomous agents.
