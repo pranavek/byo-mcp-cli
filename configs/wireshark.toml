@@ -1,0 +1,58 @@
+name = "Wireshark (tshark) CLI"
+
+[[tools]]
+name = "capture_packets"
+description = "Capture live traffic and provide raw packet data as JSON for LLM analysis"
+command = "tshark -i {interface} -a duration:{duration} -T json -e frame.number -e ip.src -e ip.dst -e tcp.srcport -e tcp.dstport -e tcp.flags -e frame.time -e http.request.method -e http.response.code"
+
+[tools.parameters]
+type = "object"
+properties = { interface = { type = "string", description = "Network interface (e.g., eth0, en0)", default = "en0" }, duration = { type = "integer", description = "Capture duration in seconds", default = 5 } }
+
+[[tools]]
+name = "get_summary_stats"
+description = "Capture live traffic and provide protocol hierarchy statistics"
+command = "tshark -i {interface} -a duration:{duration} -qz io,phs"
+
+[tools.parameters]
+type = "object"
+properties = { interface = { type = "string", description = "Network interface (e.g., eth0, en0)", default = "en0" }, duration = { type = "integer", description = "Capture duration in seconds", default = 5 } }
+
+[[tools]]
+name = "get_conversations"
+description = "Capture live traffic and provide TCP conversation statistics"
+command = "tshark -i {interface} -a duration:{duration} -qz conv,tcp"
+
+[tools.parameters]
+type = "object"
+properties = { interface = { type = "string", description = "Network interface (e.g., eth0, en0)", default = "en0" }, duration = { type = "integer", description = "Capture duration in seconds", default = 5 } }
+
+[[tools]]
+name = "analyze_pcap"
+description = "Analyze a PCAP file and provide general packet data as JSON"
+command = "tshark -r {pcapPath} -T json -e frame.number -e ip.src -e ip.dst -e tcp.srcport -e tcp.dstport -e udp.srcport -e udp.dstport -e http.host -e http.request.uri -e frame.protocols"
+
+[tools.parameters]
+type = "object"
+required = ["pcapPath"]
+properties = { pcapPath = { type = "string", description = "Path to the PCAP file" } }
+
+[[tools]]
+name = "extract_credentials"
+description = "Extract potential credentials (HTTP Basic Auth, FTP, Telnet) from a PCAP file"
+command = "tshark -r {pcapPath} -T fields -e http.authbasic -e ftp.request.command -e ftp.request.arg -e telnet.data -e frame.number"
+
+[tools.parameters]
+type = "object"
+required = ["pcapPath"]
+properties = { pcapPath = { type = "string", description = "Path to the PCAP file" } }
+
+[[tools]]
+name = "extract_kerberos"
+description = "Extract Kerberos credentials/hashes from a PCAP file"
+command = "tshark -r {pcapPath} -T fields -e kerberos.CNameString -e kerberos.realm -e kerberos.cipher -e kerberos.type -e kerberos.msg_type -e frame.number"
+
+[tools.parameters]
+type = "object"
+required = ["pcapPath"]
+properties = { pcapPath = { type = "string", description = "Path to the PCAP file" } }
